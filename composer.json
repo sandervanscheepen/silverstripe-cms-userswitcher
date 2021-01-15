@@ -1,0 +1,35 @@
+{
+    "name": "sandervanscheepen/silverstripe-cms-userswitcher",
+    "description": "Allows admins to switch to another user account through the CMS menu",
+    "type": "silverstripe-vendormodule",
+    "homepage": "https://github.com/sandervanscheepen/silverstripe-cms-userswitcher",
+    "keywords": [
+        "silverstripe",
+        "CMS",
+        "userswitcher"
+    ],
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": ">=7.1",
+        "silverstripe/cms": "^4"
+    },
+    "autoload": {
+        "psr-4": {
+            "sandervanscheepen\\silverstripe-cms-userswitcher\\": "src/"
+        }
+    },
+    "support": {
+        "issues": "https://github.com/sandervanscheepen/silverstripe-cms-userswitcher/issues"
+    },
+    "extra": {
+        "installer-name": "Silverstripe CMS UserSwitcher",
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        },
+        "expose": [
+            "client/dist"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
