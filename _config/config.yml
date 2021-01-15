@@ -1,3 +1,9 @@
 ---
 Name: silverstripe-cms-userswitcher
 ---
+SilverStripe\Admin\LeftAndMain:
+  extensions:
+    - SanderVanScheepen\SilverstripeCMSUserSwitcher\Extension\UserSwitcherDropdownLeftAndMainExt
+SilverStripe\Security\Member:
+  extensions:
+    - SanderVanScheepen\SilverstripeCMSUserSwitcher\Extension\CMSUserSwitcherMemberExt
