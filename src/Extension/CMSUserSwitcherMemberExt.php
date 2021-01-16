@@ -3,6 +3,7 @@
 	namespace SanderVanScheepen\SilverstripeCMSUserSwitcher\Extension;
 
 	use SilverStripe\Admin\CMSProfileController;
+    use SilverStripe\Control\Controller;
     use SilverStripe\Forms\CheckboxField;
 	use SilverStripe\Forms\FieldList;
 	use SilverStripe\ORM\DataExtension;
