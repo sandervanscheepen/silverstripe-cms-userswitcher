@@ -12,6 +12,7 @@
     use SilverStripe\Security\Security;
     use function in_array;
     use function intval;
+    use function serialize;
     use function var_dump;
 
     class UserSwitcherController extends LeftAndMain
@@ -50,7 +51,7 @@
 
                         $oMember = Member::get()->byID($sInputMemberID);
                         if ($oMember) {
-                            $this->getRequest()->getSession()->set('UserSwitched', 1);
+                            $this->getRequest()->getSession()->set('CMSUserSwitched', 1);
                             $oIdentityStore = Injector::inst()->get(IdentityStore::class);
                             $oIdentityStore->logIn($oMember, false, $this->getRequest());
 
@@ -102,13 +103,13 @@
                 $oCurrentMember = Security::getCurrentUser();
 
                 $oSession = Controller::curr()->getRequest()->getSession();
-var_dump(in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']));
-var_dump(static::getSwitchableMembers()->count());
 
                 static::$oMemoizedCanUserSwitch = (
-                    $oSession->get('UserSwitched')
+                    $oSession->get('CMSUserSwitched')
                     || (Permission::check('ADMIN') && in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']) && static::getSwitchableMembers()->count() > 0)
                 );
+
+                static::$oMemoizedCanUserSwitch = serialize(static::$oMemoizedCanUserSwitch);
             }
 
             return static::$oMemoizedCanUserSwitch;
