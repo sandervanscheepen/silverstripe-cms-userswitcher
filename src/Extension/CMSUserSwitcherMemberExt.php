@@ -46,20 +46,16 @@
             $oCurrentMember   = Security::getCurrentUser();
             $iCurrentMemberID = intval($oCurrentMember->ID);
 
+            $oFields->removeByName('CMSUserSwitchCanSwitch');
+            $oFields->removeByName('CMSUserSwitchCanBeImpersonatedByAdmin');
+
             if (Permission::check('ADMIN') && ! Controller::curr() instanceof CMSProfileController) {
 
-                if(Permission::check('ADMIN','any', $this->owner)) {
-                    $oFields->push(CheckboxField::create('CanBeImpersonatedByAdmin', _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension\\CMSUserSwitcherMemberExt.ENABLE_FOR_ADMIN', 'Enable CMS user switcher for this account.')));
-                }
-                else {
-                    $oFields->removeByName('CMSUserSwitchCanSwitch');
+                if (Permission::check('ADMIN', 'any', $this->owner)) {
+                    $oFields->push(CheckboxField::create('CMSUserSwitchCanSwitch', _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension\\CMSUserSwitcherMemberExt.ENABLE_FOR_ADMIN', 'Enable CMS user switcher for this account.')));
                 }
 
                 $oFields->push(CheckboxField::create('CMSUserSwitchCanBeImpersonatedByAdmin', _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension\\CMSUserSwitcherMemberExt.ADD_MEMBER_TO_USERSWITCHER', 'Show in CMS user switcher for admins')));
-            }
-            else {
-                $oFields->removeByName('CMSUserSwitchCanSwitch');
-                $oFields->removeByName('CMSUserSwitchCanBeImpersonatedByAdmin');
             }
         }
 
