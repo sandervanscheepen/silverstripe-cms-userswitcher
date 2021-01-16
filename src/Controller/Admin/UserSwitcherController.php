@@ -10,6 +10,7 @@
     use SilverStripe\Security\Member;
     use SilverStripe\Security\Permission;
     use SilverStripe\Security\Security;
+    use SanderVanScheepen\SilverstripeCMSUserSwitcher\Extension\UserSwitcherDropdownLeftAndMainExt;
     use function in_array;
     use function intval;
     use function serialize;
