@@ -98,6 +98,7 @@
 
         public function canUserSwitch()
         {
+            return 'test123';
             if (static::$oMemoizedCanUserSwitch === null) {
                 /** @var Member $oCurrentMember */
                 $oCurrentMember = Security::getCurrentUser();
