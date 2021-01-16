@@ -38,13 +38,12 @@
         {
             /** @var Member $oCurrentMember */
             $oCurrentMember   = Security::getCurrentUser();
-            $iCurrentMemberID = intval($oCurrentMember->ID);
 
             $oSession = Controller::curr()->getRequest()->getSession();
 
             return (
                 $oSession->get('UserSwitched')
-                || (Permission::check('ADMIN') && in_array($oCurrentMember->CanBeImpersonatedByAdmin, [true, 1, '1']))
+                || (Permission::check('ADMIN') && in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']))
             );
         }
 
@@ -64,8 +63,6 @@
 
                         $oMember = Member::get()->byID($sInputMemberID);
                         if ($oMember) {
-                            // UserSwitched wordt gebruikt om te checken of je mag switchen.. ook als je de ander bent geworden
-                            // zie
                             $this->getRequest()->getSession()->set('UserSwitched', 1);
                             $oIdentityStore = Injector::inst()->get(IdentityStore::class);
                             $oIdentityStore->logIn($oMember, false, $this->getRequest());
@@ -82,33 +79,17 @@
             return $this->getResponseNegotiator()->respond($request);
         }
 
-        public static function getSwitchableMembers($bAlsoAddAllAdmins = false)
+        public static function getSwitchableMembers()
         {
             /** @var Member $oCurrentMember */
             $oCurrentMember   = Security::getCurrentUser();
             $iCurrentMemberID = intval($oCurrentMember->ID);
 
             $dlMembersThatCanBeImpersonated = Member::get()->filter([
-                'CanBeImpersonatedByAdmin' => true
+                'CMSUserSwitchCanBeImpersonatedByAdmin' => true
             ]);
 
             $aMemberIDs = $dlMembersThatCanBeImpersonated->column('ID');
-
-            if ($bAlsoAddAllAdmins === true) {
-                /** @var Group $oAdminGroup */
-                $oAdminGroup = Group::get()->filter([
-                    'Code' => 'administrators'
-                ])->first();
-
-                if ($oAdminGroup instanceof Group) {
-                    /** @var Member|CMSUserSwitcherMemberExt $oMember */
-                    foreach ($oAdminGroup->Members() as $oMember) {
-                        if ( ! in_array(intval($oMember->ID), $aMemberIDs)) {
-                            $aMemberIDs[] = intval($oMember->ID);
-                        }
-                    }
-                }
-            }
 
             if (in_array($iCurrentMemberID, $aMemberIDs) !== true) {
                 $aMemberIDs[] = $iCurrentMemberID;

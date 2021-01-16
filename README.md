@@ -1,6 +1,7 @@
 # Silverstripe CMS User Switcher
 
 Allow Admin users to switch to other account through the CMS menu.
+Silverstripe 4+
 
 ## Installation
 First: add custom repository to composer.json
