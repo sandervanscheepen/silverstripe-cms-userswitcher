@@ -44,7 +44,7 @@
 
                 if ($sInputMemberID !== null) {
 
-                    $dlMembers  = UserSwitcherController::getSwitchableMembers();
+                    $dlMembers  = UserSwitcherDropdownLeftAndMainExt::getSwitchableMembers();
                     $aMemberIDs = $dlMembers->column('ID');
 
                     if (in_array(intval($sInputMemberID), $aMemberIDs)) {
@@ -65,59 +65,6 @@
             }
 
             return $this->getResponseNegotiator()->respond($request);
-        }
-
-        protected static $oMemoizedCanUserSwitch = null;
-
-        public function canUserSwitch()
-        {
-            return 'test123';
-            if (static::$oMemoizedCanUserSwitch === null) {
-                /** @var Member $oCurrentMember */
-                $oCurrentMember = Security::getCurrentUser();
-
-                $oSession = Controller::curr()->getRequest()->getSession();
-
-                static::$oMemoizedCanUserSwitch = (
-                    $oSession->get('CMSUserSwitched')
-                    || (Permission::check('ADMIN') && in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']) && static::getSwitchableMembers()->count() > 0)
-                );
-
-                static::$oMemoizedCanUserSwitch = serialize(static::$oMemoizedCanUserSwitch);
-            }
-
-            return static::$oMemoizedCanUserSwitch;
-        }
-
-        public function getNrOfSwitchableMembers() {
-            return static::getSwitchableMembers()->count();
-        }
-
-        protected static $oMemoizedSwitchableMembers = null;
-
-        public static function getSwitchableMembers()
-        {
-            if (static::$oMemoizedSwitchableMembers === null) {
-                /** @var Member $oCurrentMember */
-                $oCurrentMember   = Security::getCurrentUser();
-                $iCurrentMemberID = intval($oCurrentMember->ID);
-
-                $dlMembersThatCanBeImpersonated = Member::get()->filter([
-                    'CMSUserSwitchCanBeImpersonatedByAdmin' => true
-                ]);
-
-                $aMemberIDs = $dlMembersThatCanBeImpersonated->column('ID');
-
-                if (in_array($iCurrentMemberID, $aMemberIDs) !== true) {
-                    $aMemberIDs[] = $iCurrentMemberID;
-                }
-
-                static::$oMemoizedSwitchableMembers = Member::get()->filter([
-                    'ID' => $aMemberIDs
-                ])->sort('FirstName ASC, Surname ASC');
-            }
-
-            return static::$oMemoizedSwitchableMembers;
         }
 
 
