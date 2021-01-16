@@ -1,5 +1,5 @@
-CanUserSwitch: {$Top.canUserSwitch()}
-SwitchableMembers: {$Top.SwitchableMembers().count()}
+CanUserSwitch: {$canUserSwitch()}
+SwitchableMembers: {$getNrOfSwitchableMembers()}
 <% if $canUserSwitch  %>
     <div class="cms-subsites cms-userswitcher" data-pjax-fragment="CMSUserSwitcherMemberList">
         <div class="field dropdown">

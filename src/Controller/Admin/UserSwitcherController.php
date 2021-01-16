@@ -67,6 +67,32 @@
             return $this->getResponseNegotiator()->respond($request);
         }
 
+        protected static $oMemoizedCanUserSwitch = null;
+
+        public function canUserSwitch()
+        {
+            return 'test123';
+            if (static::$oMemoizedCanUserSwitch === null) {
+                /** @var Member $oCurrentMember */
+                $oCurrentMember = Security::getCurrentUser();
+
+                $oSession = Controller::curr()->getRequest()->getSession();
+
+                static::$oMemoizedCanUserSwitch = (
+                    $oSession->get('CMSUserSwitched')
+                    || (Permission::check('ADMIN') && in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']) && static::getSwitchableMembers()->count() > 0)
+                );
+
+                static::$oMemoizedCanUserSwitch = serialize(static::$oMemoizedCanUserSwitch);
+            }
+
+            return static::$oMemoizedCanUserSwitch;
+        }
+
+        public function getNrOfSwitchableMembers() {
+            return static::getSwitchableMembers()->count();
+        }
+
         protected static $oMemoizedSwitchableMembers = null;
 
         public static function getSwitchableMembers()
@@ -94,25 +120,5 @@
             return static::$oMemoizedSwitchableMembers;
         }
 
-        protected static $oMemoizedCanUserSwitch = null;
 
-        public function canUserSwitch()
-        {
-            return 'test123';
-            if (static::$oMemoizedCanUserSwitch === null) {
-                /** @var Member $oCurrentMember */
-                $oCurrentMember = Security::getCurrentUser();
-
-                $oSession = Controller::curr()->getRequest()->getSession();
-
-                static::$oMemoizedCanUserSwitch = (
-                    $oSession->get('CMSUserSwitched')
-                    || (Permission::check('ADMIN') && in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']) && static::getSwitchableMembers()->count() > 0)
-                );
-
-                static::$oMemoizedCanUserSwitch = serialize(static::$oMemoizedCanUserSwitch);
-            }
-
-            return static::$oMemoizedCanUserSwitch;
-        }
     }
