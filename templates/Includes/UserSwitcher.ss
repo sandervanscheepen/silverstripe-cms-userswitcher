@@ -1,6 +1,5 @@
-{$canUserSwitch} - {$SwitchableMembers.count()}
-<% if $canUserSwitch && $SwitchableMembers.count()  %>
-    <div class="cms-subsites cms-userswitcher" data-pjax-fragment="MemberList">
+<% if $canUserSwitch  %>
+    <div class="cms-subsites cms-userswitcher" data-pjax-fragment="CMSUserSwitcherMemberList">
         <div class="field dropdown">
             <select id="UserSwitcherSelect">
                 <% loop $SwitchableMembers %>

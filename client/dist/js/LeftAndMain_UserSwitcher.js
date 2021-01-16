@@ -8,7 +8,7 @@
 			onadd:function(){
 				this.on('change', function(){
 					// window.location.search=$.query.set('MemberID', $(this).val());
-					window.location.href = 'admin/userswitcher_xhr?UserSwitcherMemberID=' + $(this).val() + '&BackURL=' + window.location.href;
+					window.location.href = 'admin/cmsuserswitcher_xhr?UserSwitcherMemberID=' + $(this).val() + '&BackURL=' + window.location.href;
 				});
 			}
 		});
@@ -18,7 +18,7 @@
 		 */
 		$('.cms-container .cms-menu-list li a').entwine({
 			onclick: function(e) {
-				$('.cms-container').loadFragment('admin/userswitcher_xhr', 'MemberList');
+				$('.cms-container').loadFragment('admin/cmsuserswitcher_xhr', 'CMSUserSwitcherMemberList');
 				this._super(e);
 			}
 		});

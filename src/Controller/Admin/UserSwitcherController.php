@@ -15,7 +15,7 @@
 
     class UserSwitcherController extends LeftAndMain
     {
-        private static $url_segment = 'userswitcher_xhr';
+        private static $url_segment = 'cmsuserswitcher_xhr';
         private static $url_rule = '/$Action/$ID/$OtherID';
         private static $menu_icon_class = 'font-icon-cross-mark';
         private static $required_permission_codes = false;
@@ -35,7 +35,7 @@
 
         public function index($request)
         {
-            // admin/userswitcher_xhr?UserSwitcherMemberID=2&BackURL=
+            // admin/cmsuserswitcher_xhr?UserSwitcherMemberID=2&BackURL=
             $sInputMemberID = $request->requestVar('UserSwitcherMemberID');
 
             if ($this->canUserSwitch() === true) {
@@ -96,7 +96,7 @@
 
         public function canUserSwitch()
         {
-            if(static::$oMemoizedCanUserSwitch === null) {
+            if (static::$oMemoizedCanUserSwitch === null) {
                 /** @var Member $oCurrentMember */
                 $oCurrentMember = Security::getCurrentUser();
 
@@ -104,7 +104,7 @@
 
                 static::$oMemoizedCanUserSwitch = (
                     $oSession->get('UserSwitched')
-                    || (Permission::check('ADMIN') && in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']))
+                    || (Permission::check('ADMIN') && in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']) && static::getSwitchableMembers()->count() > 0)
                 );
             }
 
