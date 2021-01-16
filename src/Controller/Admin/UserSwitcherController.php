@@ -2,7 +2,6 @@
 
     namespace SanderVanScheepen\SilverstripeCMSUserSwitcher\Controller\Admin;
 
-    use SanderVanScheepen\SilverstripeCMSUserSwitcher\Extension\CMSUserSwitcherMemberExt;
     use SilverStripe\Admin\LeftAndMain;
     use SilverStripe\Control\Controller;
     use SilverStripe\Core\Injector\Injector;
@@ -32,19 +31,6 @@
         public function canView($member = null)
         {
             return true;
-        }
-
-        public function canUserSwitch()
-        {
-            /** @var Member $oCurrentMember */
-            $oCurrentMember   = Security::getCurrentUser();
-
-            $oSession = Controller::curr()->getRequest()->getSession();
-
-            return (
-                $oSession->get('UserSwitched')
-                || (Permission::check('ADMIN') && in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']))
-            );
         }
 
         public function index($request)
@@ -79,24 +65,49 @@
             return $this->getResponseNegotiator()->respond($request);
         }
 
+        protected static $oMemoizedSwitchableMembers = null;
+
         public static function getSwitchableMembers()
         {
-            /** @var Member $oCurrentMember */
-            $oCurrentMember   = Security::getCurrentUser();
-            $iCurrentMemberID = intval($oCurrentMember->ID);
+            if (static::$oMemoizedSwitchableMembers === null) {
+                /** @var Member $oCurrentMember */
+                $oCurrentMember   = Security::getCurrentUser();
+                $iCurrentMemberID = intval($oCurrentMember->ID);
 
-            $dlMembersThatCanBeImpersonated = Member::get()->filter([
-                'CMSUserSwitchCanBeImpersonatedByAdmin' => true
-            ]);
+                $dlMembersThatCanBeImpersonated = Member::get()->filter([
+                    'CMSUserSwitchCanBeImpersonatedByAdmin' => true
+                ]);
 
-            $aMemberIDs = $dlMembersThatCanBeImpersonated->column('ID');
+                $aMemberIDs = $dlMembersThatCanBeImpersonated->column('ID');
 
-            if (in_array($iCurrentMemberID, $aMemberIDs) !== true) {
-                $aMemberIDs[] = $iCurrentMemberID;
+                if (in_array($iCurrentMemberID, $aMemberIDs) !== true) {
+                    $aMemberIDs[] = $iCurrentMemberID;
+                }
+
+                static::$oMemoizedSwitchableMembers = Member::get()->filter([
+                    'ID' => $aMemberIDs
+                ])->sort('FirstName ASC, Surname ASC');
             }
 
-            return Member::get()->filter([
-                'ID' => $aMemberIDs
-            ])->sort('FirstName ASC, Surname ASC');
+            return static::$oMemoizedSwitchableMembers;
+        }
+
+        protected static $oMemoizedCanUserSwitch = null;
+
+        public function canUserSwitch()
+        {
+            if(static::$oMemoizedCanUserSwitch === null) {
+                /** @var Member $oCurrentMember */
+                $oCurrentMember = Security::getCurrentUser();
+
+                $oSession = Controller::curr()->getRequest()->getSession();
+
+                static::$oMemoizedCanUserSwitch = (
+                    $oSession->get('UserSwitched')
+                    || (Permission::check('ADMIN') && in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']))
+                );
+            }
+
+            return static::$oMemoizedCanUserSwitch;
         }
     }
