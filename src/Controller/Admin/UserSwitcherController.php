@@ -12,6 +12,7 @@
     use SilverStripe\Security\Security;
     use function in_array;
     use function intval;
+    use function var_dump;
 
     class UserSwitcherController extends LeftAndMain
     {
@@ -101,6 +102,8 @@
                 $oCurrentMember = Security::getCurrentUser();
 
                 $oSession = Controller::curr()->getRequest()->getSession();
+var_dump(in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']));
+var_dump(static::getSwitchableMembers()->count());
 
                 static::$oMemoizedCanUserSwitch = (
                     $oSession->get('UserSwitched')
