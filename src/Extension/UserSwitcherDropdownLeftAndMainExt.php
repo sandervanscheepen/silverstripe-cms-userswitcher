@@ -66,7 +66,7 @@
                     || (Permission::check('ADMIN') && in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']) && static::getSwitchableMembers()->count() > 0)
                 );
 
-                static::$oMemoizedCanUserSwitch = serialize(static::$oMemoizedCanUserSwitch);
+                static::$oMemoizedCanUserSwitch = serialize(in_array($oCurrentMember->CMSUserSwitchCanSwitch, [true, 1, '1']));
             }
 
             return static::$oMemoizedCanUserSwitch;
