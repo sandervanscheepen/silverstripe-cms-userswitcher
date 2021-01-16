@@ -7,11 +7,13 @@
     use SilverStripe\Forms\CheckboxField;
 	use SilverStripe\Forms\FieldList;
 	use SilverStripe\ORM\DataExtension;
+    use SilverStripe\Security\Security;
 	use SilverStripe\Security\Member;
     use SilverStripe\Security\Permission;
 	use function _t;
+    use function intval;
 
-	/**
+    /**
 	 * Class CMSUserSwitcherMemberExt
 	 *
 	 * @property bool $CanBeImpersonatedByAdmin
@@ -38,8 +40,18 @@
 
 		public function updateCMSFields(FieldList $oFields)
 		{
+            /** @var Member $oCurrentMember */
+            $oCurrentMember   = Security::getCurrentUser();
+            $iCurrentMemberID = intval($oCurrentMember->ID);
+
 		    if(Permission::check('ADMIN') && ! Controller::curr() instanceof CMSProfileController) {
-                $oFields->push(CheckboxField::create('CanBeImpersonatedByAdmin', _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension', 'Show in CMS user switcher for admins')));
+		        $sTitle = _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension', 'Show in CMS user switcher for admins');
+
+		        if($iCurrentMemberID === intval($this->owner->ID)) {
+		            $sTitle = _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension', 'Enable CMS user switcher for this account.');
+                }
+
+                $oFields->push(CheckboxField::create('CanBeImpersonatedByAdmin', $sTitle));
             }
 		    else {
 		        $oFields->removeByName('CanBeImpersonatedByAdmin');
