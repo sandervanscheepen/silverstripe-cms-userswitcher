@@ -33,7 +33,7 @@
 
         public function canView($member = null)
         {
-            return true;
+            return false;
         }
 
         public function index($request)
