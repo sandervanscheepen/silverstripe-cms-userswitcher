@@ -22,6 +22,7 @@
         private static $url_rule = '/$Action/$ID/$OtherID';
         private static $menu_icon_class = 'font-icon-cross-mark';
         private static $required_permission_codes = false;
+        private static $ignore_menuitem = true;
 
         //private static $subitem_class = 'Member';
 
@@ -33,7 +34,7 @@
 
         public function canView($member = null)
         {
-            return false;
+            return true;
         }
 
         public function index($request)
