@@ -31,25 +31,5 @@ function cmsUserSwitcherGetAdminRootURLSegment()
     return window.ssAdminRootURL;
   }
 
-  if ( typeof window !== 'undefined' )
-  {
-    var aURLParts = window.location.href.split('/');
-    var sHost = window.location.host;
-
-    let bIsPastHost = false;
-    for ( var i = 0; i < aURLParts.length; ++i )
-    {
-      if ( bIsPastHost === true && aURLParts[i].trim() !== '' )
-      {
-        return aURLParts[i];
-      }
-
-      if ( aURLParts[i] === sHost )
-      {
-        bIsPastHost = true;
-      }
-    }
-  }
-
   return 'admin';
 }
