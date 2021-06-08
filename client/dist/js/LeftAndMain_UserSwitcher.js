@@ -27,6 +27,10 @@
 
 function cmsUserSwitcherGetAdminRootURLSegment()
 {
+  if(typeof window.ssAdminRootURL !== "undefined" ) {
+    return window.ssAdminRootURL;
+  }
+
   if ( typeof window !== 'undefined' )
   {
     var aURLParts = window.location.href.split('/');
