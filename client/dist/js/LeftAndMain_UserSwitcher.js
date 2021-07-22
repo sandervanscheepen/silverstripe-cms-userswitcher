@@ -14,7 +14,7 @@
     });
 
     /*
-     * Reload subsites dropdown when links are processed
+     * Reload subsites dropdown when links are processed.
      */
     $('.cms-container .cms-menu-list li a').entwine({
       onclick: function (e) {
