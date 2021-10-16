@@ -40,10 +40,17 @@
 			foreach ($dlMembers as $oMember) {
 				$sCurrentState = intval($oMember->ID) === intval($oCurrentMember->ID) ? 'selected' : '';
 
+				$sLabel = 'Member ' . $oMember->ID;
+				$sName = $oMember->getName();
+
+				if($sName && trim($sName) !== "") {
+				    $sLabel = $sName;
+                }
+
 				$output->push(ArrayData::create([
 					'CurrentState' => $sCurrentState,
 					'ID'           => $oMember->ID,
-					'Title'        => $oMember->getFullName(),
+					'Title'        => $sLabel,
 					'MemberID'     => $oMember->ID
 				]));
 			}
