@@ -6,7 +6,12 @@
     "keywords": [
         "silverstripe",
         "CMS",
-        "userswitcher"
+        "userswitcher",
+        "security",
+        "member",
+        "admin",
+        "authentication",
+        "login"
     ],
     "license": "BSD-3-Clause",
     "require": {
