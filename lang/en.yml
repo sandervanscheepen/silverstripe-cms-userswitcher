@@ -1,0 +1,6 @@
+en:
+  SanderVanScheepen\SilverstripeCMSUserSwitcher\Extension\CMSUserSwitcherMemberExt:
+    HEADER_MAIN: 'Switching identities'
+    INTRODUCTION: 'This feature allows administrators after logging in to the CMS to assume the identity of another user.'
+    OPTION_ENABLE_FOR_ADMIN: 'Enable this administrator account to log in as other users.'
+    OPTION_ADD_MEMBER_TO_USERSWITCHER: 'Show this user in the list of accounts that administrators can assume the identity of'

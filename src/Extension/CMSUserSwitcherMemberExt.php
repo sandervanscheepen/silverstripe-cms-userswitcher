@@ -6,10 +6,13 @@ use SilverStripe\Admin\CMSProfileController;
 use SilverStripe\Control\Controller;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\LiteralField;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
+use SilverStripe\View\Requirements;
 use function _t;
 use function intval;
 
@@ -50,12 +53,14 @@ class CMSUserSwitcherMemberExt extends DataExtension
         $oFields->removeByName('CMSUserSwitchCanBeImpersonatedByAdmin');
 
         if (Permission::check('ADMIN') && ! Controller::curr() instanceof CMSProfileController) {
+            $oFields->push(HeaderField::create('HdrCMSUserSwitcherMain', _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension\\CMSUserSwitcherMemberExt.HEADER_MAIN', 'Switching identities'), 2));
+            $oFields->push(LiteralField::create('LitCMSUserSwitcherIntroduction', '<p>' . _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension\\CMSUserSwitcherMemberExt.INTRODUCTION', 'This feature allows administrators after logging in to the CMS to assume the identity of another user.') . '</p>'));
 
             if (Permission::check('ADMIN', 'any', $this->owner)) {
-                $oFields->push(CheckboxField::create('CMSUserSwitchCanSwitch', _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension\\CMSUserSwitcherMemberExt.ENABLE_FOR_ADMIN', 'Enable CMS user switcher for this account.')));
+                $oFields->push(CheckboxField::create('CMSUserSwitchCanSwitch', _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension\\CMSUserSwitcherMemberExt.OPTION_ENABLE_FOR_ADMIN', 'Enable CMS user switcher for this account.')));
             }
 
-            $oFields->push(CheckboxField::create('CMSUserSwitchCanBeImpersonatedByAdmin', _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension\\CMSUserSwitcherMemberExt.ADD_MEMBER_TO_USERSWITCHER', 'Show in CMS user switcher for admins')));
+            $oFields->push(CheckboxField::create('CMSUserSwitchCanBeImpersonatedByAdmin', _t('SanderVanScheepen\\SilverstripeCMSUserSwitcher\\Extension\\CMSUserSwitcherMemberExt.OPTION_ADD_MEMBER_TO_USERSWITCHER', 'Show in CMS user switcher for admins')));
         }
     }
 
