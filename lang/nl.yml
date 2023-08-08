@@ -1,0 +1,6 @@
+nl:
+  SanderVanScheepen\SilverstripeCMSUserSwitcher\Extension\CMSUserSwitcherMemberExt:
+    HEADER_MAIN: 'In kunnen loggen als andere gebruiker'
+    INTRODUCTION: 'Hiermee kunnen beheerders in het CMS de identiteit van een andere gebruiker aannemen.'
+    OPTION_ENABLE_FOR_ADMIN: 'Activeer inloggen als andere gebruiker voor dit administratoraccount'
+    OPTION_ADD_MEMBER_TO_USERSWITCHER: 'Toon deze gebruiker in de lijst van accounts waarvan administrators de identiteit van kunnen aannemen'

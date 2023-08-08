@@ -17,11 +17,11 @@
     "license": "BSD-3-Clause",
     "require": {
         "php": ">=7.1",
-        "silverstripe/cms": "^4"
+        "silverstripe/cms": "^4 || ^5"
     },
     "autoload": {
         "psr-4": {
-            "sandervanscheepen\\silverstripe-cms-userswitcher\\": "src/"
+            "SanderVanScheepen\\SilverstripeCMSUserSwitcher\\": "src/"
         }
     },
     "support": {

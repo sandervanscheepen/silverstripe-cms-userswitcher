@@ -1,6 +1,6 @@
 # Silverstripe CMS User Switcher
 
-Allow Admin users to switch to other account through the CMS menu.
+Allows administrators to assume the identity of another user.
 
 Silverstripe 4+
 
@@ -10,9 +10,16 @@ composer require "sandervanscheepen/silverstripe-cms-userswitcher"
 ```
 
 ## Usage
-Enabled for Members through the Security section in the CMS. Refresh of the interface required after activation.
-Only Members in administrator group can be allowed to see the dropdown in the top left corner of the CMS to switch to other accounts.
-All Members (admin or non admin) can be added to that dropdown through their record in Security.
+The ability to assume the identity of another user can exclusively be enabled for Members with admin permissions.
+All settings are managed through the Security admin at /admin/security
+Admin users can enable/disable the userswitcher dropdown on their own account and add other accounts to the dropdown that will apear at the top left of the CMS interface (refresh needed after activation).
+
+Options for Member that is part of Administrators group (viewed by administrator - also note the added dropdown in the top left corner):
+![Settings for a Member record that is part of Administrators group](/docs/images/screen_security_admin.jpg?raw=true "Settings for a Member record that is part of Administrators group")
+
+Options for Member that is not part of Administrators group (viewed by administrator):
+![Settings for a Member record that is not part of Administrators group](/docs/images/screen_security_nonadmin.jpg?raw=true "Settings for a Member record that is not part of Administrators group")
+
 
 ## License
 See [License](license.md)
