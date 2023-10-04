@@ -37,5 +37,11 @@
         ]
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "silverstripe/vendor-plugin": true
+        }
+    }
 }
