@@ -16,8 +16,8 @@
     ],
     "license": "BSD-3-Clause",
     "require": {
-        "php": ">=7.1",
-        "silverstripe/cms": "^4 || ^5"
+        "php": ">=8.1",
+        "silverstripe/cms": "^5"
     },
     "autoload": {
         "psr-4": {
@@ -37,5 +37,11 @@
         ]
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "silverstripe/vendor-plugin": true
+        }
+    }
 }

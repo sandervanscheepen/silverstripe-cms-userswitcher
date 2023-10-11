@@ -11,6 +11,9 @@ use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
 use SanderVanScheepen\SilverstripeCMSUserSwitcher\Extension\UserSwitcherDropdownLeftAndMainExt;
+use SilverStripe\Control\HTTPRequest;
+use SilverStripe\Control\HTTPResponse;
+
 use function in_array;
 use function intval;
 use function serialize;
@@ -37,7 +40,7 @@ class UserSwitcherController extends LeftAndMain
         return true;
     }
 
-    public function index($request)
+    public function index(HTTPRequest $request): HTTPResponse
     {
         // admin/cmsuserswitcher_xhr?UserSwitcherMemberID=2&BackURL=
         $sInputMemberID = $request->requestVar('UserSwitcherMemberID');
@@ -59,8 +62,7 @@ class UserSwitcherController extends LeftAndMain
 
                         return $this->redirectBack();
                     }
-                }
-                else {
+                } else {
                     return $this->redirectBack();
                 }
             }
