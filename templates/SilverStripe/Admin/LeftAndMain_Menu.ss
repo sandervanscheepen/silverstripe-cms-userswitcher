@@ -5,13 +5,13 @@
         <% include SilverStripe\\Admin\\LeftAndMain_MenuLogo %>
         <% include SilverStripe\\Admin\\LeftAndMain_MenuStatus %>
 
+        <% if $sectionSites.count > 0 %>
+            <%-- Subsite module support--%>
+            <% include SilverStripe\\Subsites\\Controller\\Includes\\SubsiteXHRController_subsitelist %>
+        <% end_if %>
 
-				<% if $ListSubsites.Count > 1 %>
-						<% include SilverStripe\\Subsites\\Controller\\SubsiteXHRController_subsitelist %>
-				<% end_if %>
 
-
-				<% include Includes\\UserSwitcher %>
+        <% include Includes\\UserSwitcher %>
 
     </div>
 
