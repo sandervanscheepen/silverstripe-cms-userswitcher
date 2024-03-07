@@ -40,7 +40,7 @@ class UserSwitcherController extends LeftAndMain
         return true;
     }
 
-    public function index(HTTPRequest $request): HTTPResponse
+    public function index($request)
     {
         // admin/cmsuserswitcher_xhr?UserSwitcherMemberID=2&BackURL=
         $sInputMemberID = $request->requestVar('UserSwitcherMemberID');
