@@ -2,7 +2,9 @@
 
 Allows administrators to assume the identity of another user.
 
-Silverstripe 4+
+Silverstripe 5+
+
+For Silverstripe 4 use older versions of this module
 
 ## Installation
 ```
@@ -22,7 +24,7 @@ Options for Member that is not part of Administrators group (viewed by administr
 
 
 ## License
-See [License](license.md)
+See [License](LICENSE.md)
 
 ## Maintainers
  * Sander van Scheepen <sander@hamaka.nl>
