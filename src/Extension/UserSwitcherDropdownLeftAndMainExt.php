@@ -25,7 +25,10 @@ class UserSwitcherDropdownLeftAndMainExt extends Extension
     public function SwitchableMembers()
     {
         $output = ArrayList::create();
+        // Load assets here (when the switcher renders): the extension init() hook
+        // does not fire on LeftAndMain in SS6, so requiring them there is unreliable.
         Requirements::javascript('sandervanscheepen/silverstripe-cms-userswitcher:client/dist/js/LeftAndMain_UserSwitcher.js');
+        Requirements::css('sandervanscheepen/silverstripe-cms-userswitcher:client/dist/css/LeftAndMain_UserSwitcher.css');
 
         $dlMembers = UserSwitcherDropdownLeftAndMainExt::getSwitchableMembers();
 
