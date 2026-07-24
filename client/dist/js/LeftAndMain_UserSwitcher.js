@@ -31,5 +31,12 @@ function cmsUserSwitcherGetAdminRootURLSegment()
     return window.ssAdminRootURL;
   }
 
-  return 'admin';
+  // Silverstripe 6: window.ssAdminRootURL was removed. Build an ABSOLUTE admin
+  // root from the <base> href + ss.config.adminUrl, otherwise assigning a
+  // relative URL to window.location resolves against the current admin section
+  // (e.g. /admin/pages) and produces a broken /admin/admin/... path.
+  var adminUrl = (window.ss && window.ss.config && window.ss.config.adminUrl) ? window.ss.config.adminUrl : 'admin';
+  var baseEl = document.querySelector('base');
+  var base = baseEl ? baseEl.href.replace(/\/$/, '') : window.location.origin;
+  return base + '/' + adminUrl.replace(/^\//, '');
 }

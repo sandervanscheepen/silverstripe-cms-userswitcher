@@ -3,20 +3,20 @@
 namespace SanderVanScheepen\SilverstripeCMSUserSwitcher\Extension;
 
 use SilverStripe\Control\Controller;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Core\Extension;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\View\Requirements;
 use function in_array;
 use function intval;
 
-class UserSwitcherDropdownLeftAndMainExt extends DataExtension
+class UserSwitcherDropdownLeftAndMainExt extends Extension
 {
 
-    public function init()
+    protected function init(): void
     {
         Requirements::javascript('sandervanscheepen/silverstripe-cms-userswitcher:client/dist/js/LeftAndMain_UserSwitcher.js');
         Requirements::css('sandervanscheepen/silverstripe-cms-userswitcher:client/dist/css/LeftAndMain_UserSwitcher.css');

@@ -8,7 +8,7 @@ use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HeaderField;
 use SilverStripe\Forms\LiteralField;
-use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Extension;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\Security;
@@ -23,7 +23,7 @@ use function intval;
  * @property bool                            $CMSUserSwitchCanBeImpersonatedByAdmin
  * @property Member|CMSUserSwitcherMemberExt $owner
  */
-class CMSUserSwitcherMemberExt extends DataExtension
+class CMSUserSwitcherMemberExt extends Extension
 {
     private static $db = [
         'CMSUserSwitchCanSwitch'                => 'Boolean',
@@ -43,7 +43,7 @@ class CMSUserSwitcherMemberExt extends DataExtension
 
     private static $defaults = [];
 
-    public function updateCMSFields(FieldList $oFields)
+    protected function updateCMSFields(FieldList $oFields): void
     {
         /** @var Member $oCurrentMember */
         $oCurrentMember   = Security::getCurrentUser();

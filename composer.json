@@ -16,9 +16,9 @@
     ],
     "license": "BSD-3-Clause",
     "require": {
-        "php": ">=8.2",
-        "silverstripe/framework": "^5",
-        "silverstripe/admin": "*"
+        "php": "^8.3",
+        "silverstripe/framework": "^6",
+        "silverstripe/admin": "^3"
     },
     "autoload": {
         "psr-4": {
@@ -31,7 +31,7 @@
     "extra": {
         "installer-name": "Silverstripe CMS UserSwitcher",
         "branch-alias": {
-            "dev-master": "2.x-dev"
+            "dev-master": "3.x-dev"
         },
         "expose": [
             "client/dist"
