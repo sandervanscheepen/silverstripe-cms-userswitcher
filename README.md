@@ -2,7 +2,17 @@
 
 Allows administrators to assume the identity of another user.
 
-Silverstripe 4+
+## Compatibility
+
+| Module | Silverstripe CMS |
+|:--|:--|
+| `^3` | 6 |
+| `^2` | 5 |
+| `^1` | 4 *(frozen — no new releases)* |
+
+e.g. `composer require sandervanscheepen/silverstripe-cms-userswitcher:^3` for Silverstripe 6.
+
+> **Tracking `dev-master`?** `master` is now the Silverstripe 6 line — pin `^2` if you need Silverstripe 5.
 
 ## Installation
 ```
